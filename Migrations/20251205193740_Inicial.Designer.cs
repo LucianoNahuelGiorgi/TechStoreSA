@@ -12,8 +12,8 @@ using TechStoreSA.Data;
 namespace TechStoreSA.Migrations
 {
     [DbContext(typeof(TechStoreContext))]
-    [Migration("20251205182141_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20251205193740_Inicial")]
+    partial class Inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
