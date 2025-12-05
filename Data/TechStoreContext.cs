@@ -7,11 +7,16 @@ namespace TechStoreSA.Data
 {
     public class TechStoreContext : DbContext
     {
+        // --- 1. ESTE ES EL CONSTRUCTOR QUE FALTABA ---
+        public TechStoreContext(DbContextOptions<TechStoreContext> options) : base(options)
+        {
+        }
+
         // Sets de tablas
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Producto> Productos { get; set; }
         public DbSet<Sucursal> Sucursales { get; set; }
-        public DbSet<StockSucursal> StocksSucursales { get; set; }
+        public DbSet<StockSucursal> StocksSucursales { get; set; } // Nombre corregido para coincidir con tu propiedad
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Venta> Ventas { get; set; }
@@ -19,8 +24,7 @@ namespace TechStoreSA.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            // Configuración para LocalDB (incluida en Visual Studio)
-            // Si usas SQL Express, cambia el Data Source.
+            // Configuración de respaldo por si no se pasa desde Program.cs
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=TechStoreDB;Trusted_Connection=True;");
@@ -32,7 +36,6 @@ namespace TechStoreSA.Data
             base.OnModelCreating(modelBuilder);
 
             // CONFIGURACIÓN DE RELACIONES MUCHOS A MUCHOS (StockSucursal)
-            // Definimos que la PK es compuesta
             modelBuilder.Entity<StockSucursal>()
                 .HasKey(ss => new { ss.SucursalId, ss.ProductoId });
 
@@ -46,23 +49,33 @@ namespace TechStoreSA.Data
                 .WithMany(p => p.Stocks)
                 .HasForeignKey(ss => ss.ProductoId);
 
-            // CONFIGURACIÓN ADICIONAL
-            // Asegurar que el DNI/Documento del cliente sea único
+            // ÍNDICES ÚNICOS
             modelBuilder.Entity<Cliente>()
                 .HasIndex(c => c.Documento)
                 .IsUnique();
 
-            // Asegurar que el código SKU del producto sea único
             modelBuilder.Entity<Producto>()
                 .HasIndex(p => p.Codigo)
                 .IsUnique();
 
-            // Configuración de borrado en cascada (Opcional, pero recomendado revisar)
-            // Por ejemplo, si borro una Venta, se borran sus detalles.
+            // BORRADO EN CASCADA PARA DETALLES
             modelBuilder.Entity<DetalleVenta>()
                .HasOne(d => d.Venta)
                .WithMany(v => v.Detalles)
                .OnDelete(DeleteBehavior.Cascade);
+
+            // --- 2. SEED DE DATOS (Usuario Admin por defecto) ---
+            // Importante para poder loguearte la primera vez
+            modelBuilder.Entity<Usuario>().HasData(
+                new Usuario
+                {
+                    Id = 1,
+                    NombreCompleto = "Administrador Sistema",
+                    NombreUsuario = "admin",
+                    PasswordHash = "1234", // Contraseña por defecto
+                    EsAdministrador = true
+                }
+            );
         }
     }
 }
