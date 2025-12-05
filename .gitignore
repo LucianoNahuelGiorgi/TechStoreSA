@@ -1,0 +1,34 @@
+## Visual Studio ##
+.vs/
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+build/
+
+## Archivos específicos de usuario (no subir al repo) ##
+*.user
+*.userosscache
+*.sln.docstates
+*.suo
+
+## Visual Studio Code (si usas VS Code también) ##
+.vscode/
+
+## Archivos de sistema de Windows ##
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+## Archivos temporales de .NET Core / .NET ##
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+## Archivos de log ##
+*.log
+
+## Si usas appsettings con claves reales, considera ignorar el de desarrollo
+# appsettings.Development.json
