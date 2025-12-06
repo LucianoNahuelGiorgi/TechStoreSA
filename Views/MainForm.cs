@@ -101,46 +101,36 @@ namespace TechStoreSA.Views
 
         private void btnVentas_Click(object sender, EventArgs e)
         {
-            // DESCOMENTAR CUANDO TENGAS EL FORMULARIO DE VENTAS
-            // OpenChildForm(new VentasForm(_usuarioActual, _context), sender);
+            OpenChildForm(new VentasForm(_usuarioActual, _context), sender);
 
-            MessageBox.Show("Módulo de Ventas: Próximamente", "En Construcción");
             ActivateButton(sender);
         }
 
         private void btnProductos_Click(object sender, EventArgs e)
         {
-            // DESCOMENTAR CUANDO TENGAS EL FORMULARIO DE PRODUCTOS
-            // OpenChildForm(new ProductosForm(_context), sender);
+            OpenChildForm(new ProductosForm(_context), sender);
 
-            MessageBox.Show("Módulo de Productos: Próximamente", "En Construcción");
             ActivateButton(sender);
         }
 
         private void btnClientes_Click(object sender, EventArgs e)
         {
-            // DESCOMENTAR CUANDO TENGAS EL FORMULARIO DE CLIENTES
-            // OpenChildForm(new ClientesForm(_context), sender);
+            OpenChildForm(new ClientesForm(_context), sender);
 
-            MessageBox.Show("Módulo de Clientes: Próximamente", "En Construcción");
             ActivateButton(sender);
         }
 
         private void btnReportes_Click(object sender, EventArgs e)
         {
-            // DESCOMENTAR CUANDO TENGAS EL FORMULARIO DE REPORTES
-            // OpenChildForm(new ReportesForm(_context), sender);
+            OpenChildForm(new ReportesForm(_context), sender);
 
-            MessageBox.Show("Módulo de Reportes: Próximamente", "En Construcción");
             ActivateButton(sender);
         }
 
         private void btnUsuarios_Click(object sender, EventArgs e)
         {
-            // DESCOMENTAR CUANDO TENGAS EL FORMULARIO DE USUARIOS
-            // OpenChildForm(new UsuariosForm(_context), sender);
+            OpenChildForm(new UsuariosForm(_context), sender);
 
-            MessageBox.Show("Módulo de Usuarios: Próximamente", "En Construcción");
             ActivateButton(sender);
         }
 

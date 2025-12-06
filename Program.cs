@@ -12,26 +12,49 @@ namespace TechStoreSA
         {
             ApplicationConfiguration.Initialize();
 
-            // 1. Configurar la Base de Datos (Contexto)
-            // Ajusta "Server=..." con tu cadena de conexión real de SQL Server
+            // 1. Configurar la conexión a la Base de Datos
             var optionsBuilder = new DbContextOptionsBuilder<TechStoreContext>();
-            optionsBuilder.UseSqlServer("Server=.;Database=TechStoreDB;Trusted_Connection=True;TrustServerCertificate=True;");
+
+            // IMPORTANTE: Usa esta cadena de conexión que es compatible con la instalación por defecto de Visual Studio
+            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=TechStoreDB;Trusted_Connection=True;TrustServerCertificate=True;");
 
             using (var context = new TechStoreContext(optionsBuilder.Options))
             {
-                // 2. Crear un Usuario "Fake" para pruebas (ya que aún no tenemos pantalla de Login)
-                // Esto simula que alguien se logueó exitosamente.
-                var usuarioPrueba = new Usuario
+                try
                 {
-                    Id = 1,
-                    NombreCompleto = "Administrador Sistema",
-                    NombreUsuario = "admin",
-                    EsAdministrador = true // Cambia a false para probar la vista de Vendedor
-                };
+                    // 2. ASEGURAR QUE LA BASE DE DATOS EXISTA
+                    // Esto creará la BD y el usuario 'admin' (clave '1234') definido en tu TechStoreContext
+                    context.Database.EnsureCreated();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al conectar con la Base de Datos: {ex.Message}", "Error Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return; // Salir si no hay base de datos
+                }
 
-                // 3. Iniciar el MainForm pasando los objetos que requiere
-                // Nota: Cambié "new Form1()" por "new MainForm(...)" porque así se llama tu clase
-                Application.Run(new MainForm(usuarioPrueba, context));
+                // 3. INICIAR EL LOGIN
+                LoginForm loginForm = new LoginForm(context);
+
+                // Mostramos el Login como ventana modal (el código se detiene aquí hasta que se cierre)
+                DialogResult resultado = loginForm.ShowDialog();
+
+                // 4. VERIFICAR RESULTADO
+                if (resultado == DialogResult.OK)
+                {
+                    // Si el login fue exitoso, obtenemos el usuario real de la BD
+                    var usuarioLogueado = loginForm.UsuarioValidado;
+
+                    if (usuarioLogueado != null)
+                    {
+                        // Arrancamos la aplicación principal
+                        Application.Run(new MainForm(usuarioLogueado, context));
+                    }
+                }
+                else
+                {
+                    // Si el usuario cerró la ventana de login o canceló, la app termina aquí.
+                    Application.Exit();
+                }
             }
         }
     }
