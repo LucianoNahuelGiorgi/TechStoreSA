@@ -142,5 +142,26 @@ namespace TechStoreSA.Views
                 this.Close(); // Cierra el Main, regresando al Program.cs (donde volverá al Login)
             }
         }
+
+        private void btnCategorias_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new CategoriasForm(_context), sender);
+
+            ActivateButton(sender);
+        }
+
+        private void btnSucursales_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new SucursalesForm(_context), sender);
+
+            ActivateButton(sender);
+        }
+
+        private void btnStock_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new StockForm(_context), sender);
+
+            ActivateButton(sender);
+        }
     }
 }

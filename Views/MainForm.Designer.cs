@@ -2,30 +2,14 @@
 {
     partial class MainForm
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
+            if (disposing && (components != null)) components.Dispose();
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             this.panelMenu = new System.Windows.Forms.Panel();
@@ -33,7 +17,10 @@
             this.btnUsuarios = new System.Windows.Forms.Button();
             this.btnReportes = new System.Windows.Forms.Button();
             this.btnClientes = new System.Windows.Forms.Button();
+            this.btnStock = new System.Windows.Forms.Button();      // NUEVO
+            this.btnCategorias = new System.Windows.Forms.Button();
             this.btnProductos = new System.Windows.Forms.Button();
+            this.btnSucursales = new System.Windows.Forms.Button(); // NUEVO
             this.btnVentas = new System.Windows.Forms.Button();
             this.panelLogo = new System.Windows.Forms.Panel();
             this.lblAppName = new System.Windows.Forms.Label();
@@ -55,13 +42,16 @@
             this.panelMenu.Controls.Add(this.btnUsuarios);
             this.panelMenu.Controls.Add(this.btnReportes);
             this.panelMenu.Controls.Add(this.btnClientes);
+            this.panelMenu.Controls.Add(this.btnStock); // Orden
+            this.panelMenu.Controls.Add(this.btnCategorias);
             this.panelMenu.Controls.Add(this.btnProductos);
+            this.panelMenu.Controls.Add(this.btnSucursales); // Orden
             this.panelMenu.Controls.Add(this.btnVentas);
             this.panelMenu.Controls.Add(this.panelLogo);
             this.panelMenu.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelMenu.Location = new System.Drawing.Point(0, 0);
             this.panelMenu.Name = "panelMenu";
-            this.panelMenu.Size = new System.Drawing.Size(220, 581);
+            this.panelMenu.Size = new System.Drawing.Size(220, 650); // Aumenté el alto un poco
             this.panelMenu.TabIndex = 0;
             // 
             // btnSalir
@@ -71,11 +61,11 @@
             this.btnSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSalir.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnSalir.ForeColor = System.Drawing.Color.Gainsboro;
-            this.btnSalir.Location = new System.Drawing.Point(0, 521);
+            this.btnSalir.Location = new System.Drawing.Point(0, 590);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
             this.btnSalir.Size = new System.Drawing.Size(220, 60);
-            this.btnSalir.TabIndex = 6;
+            this.btnSalir.TabIndex = 9;
             this.btnSalir.Text = "Cerrar Sesión";
             this.btnSalir.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnSalir.UseVisualStyleBackColor = true;
@@ -88,11 +78,11 @@
             this.btnUsuarios.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUsuarios.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnUsuarios.ForeColor = System.Drawing.Color.Gainsboro;
-            this.btnUsuarios.Location = new System.Drawing.Point(0, 320);
+            this.btnUsuarios.Location = new System.Drawing.Point(0, 500);
             this.btnUsuarios.Name = "btnUsuarios";
             this.btnUsuarios.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
             this.btnUsuarios.Size = new System.Drawing.Size(220, 60);
-            this.btnUsuarios.TabIndex = 5;
+            this.btnUsuarios.TabIndex = 8;
             this.btnUsuarios.Text = "   Usuarios y Admin";
             this.btnUsuarios.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnUsuarios.UseVisualStyleBackColor = true;
@@ -105,11 +95,11 @@
             this.btnReportes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnReportes.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnReportes.ForeColor = System.Drawing.Color.Gainsboro;
-            this.btnReportes.Location = new System.Drawing.Point(0, 260);
+            this.btnReportes.Location = new System.Drawing.Point(0, 440);
             this.btnReportes.Name = "btnReportes";
             this.btnReportes.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
             this.btnReportes.Size = new System.Drawing.Size(220, 60);
-            this.btnReportes.TabIndex = 4;
+            this.btnReportes.TabIndex = 7;
             this.btnReportes.Text = "   Reportes";
             this.btnReportes.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnReportes.UseVisualStyleBackColor = true;
@@ -122,15 +112,49 @@
             this.btnClientes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClientes.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnClientes.ForeColor = System.Drawing.Color.Gainsboro;
-            this.btnClientes.Location = new System.Drawing.Point(0, 200);
+            this.btnClientes.Location = new System.Drawing.Point(0, 380);
             this.btnClientes.Name = "btnClientes";
             this.btnClientes.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
             this.btnClientes.Size = new System.Drawing.Size(220, 60);
-            this.btnClientes.TabIndex = 3;
+            this.btnClientes.TabIndex = 6;
             this.btnClientes.Text = "   Clientes";
             this.btnClientes.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnClientes.UseVisualStyleBackColor = true;
             this.btnClientes.Click += new System.EventHandler(this.btnClientes_Click);
+            // 
+            // btnStock (NUEVO)
+            // 
+            this.btnStock.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnStock.FlatAppearance.BorderSize = 0;
+            this.btnStock.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStock.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnStock.ForeColor = System.Drawing.Color.Gainsboro;
+            this.btnStock.Location = new System.Drawing.Point(0, 320);
+            this.btnStock.Name = "btnStock";
+            this.btnStock.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
+            this.btnStock.Size = new System.Drawing.Size(220, 60);
+            this.btnStock.TabIndex = 5;
+            this.btnStock.Text = "   Gestión de Stock";
+            this.btnStock.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnStock.UseVisualStyleBackColor = true;
+            this.btnStock.Click += new System.EventHandler(this.btnStock_Click);
+            // 
+            // btnCategorias
+            // 
+            this.btnCategorias.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnCategorias.FlatAppearance.BorderSize = 0;
+            this.btnCategorias.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCategorias.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnCategorias.ForeColor = System.Drawing.Color.Gainsboro;
+            this.btnCategorias.Location = new System.Drawing.Point(0, 260);
+            this.btnCategorias.Name = "btnCategorias";
+            this.btnCategorias.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
+            this.btnCategorias.Size = new System.Drawing.Size(220, 60);
+            this.btnCategorias.TabIndex = 4;
+            this.btnCategorias.Text = "   Categorías";
+            this.btnCategorias.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCategorias.UseVisualStyleBackColor = true;
+            this.btnCategorias.Click += new System.EventHandler(this.btnCategorias_Click);
             // 
             // btnProductos
             // 
@@ -139,15 +163,32 @@
             this.btnProductos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnProductos.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnProductos.ForeColor = System.Drawing.Color.Gainsboro;
-            this.btnProductos.Location = new System.Drawing.Point(0, 140);
+            this.btnProductos.Location = new System.Drawing.Point(0, 200);
             this.btnProductos.Name = "btnProductos";
             this.btnProductos.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
             this.btnProductos.Size = new System.Drawing.Size(220, 60);
-            this.btnProductos.TabIndex = 2;
-            this.btnProductos.Text = "   Productos y Stock";
+            this.btnProductos.TabIndex = 3;
+            this.btnProductos.Text = "   Productos";
             this.btnProductos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnProductos.UseVisualStyleBackColor = true;
             this.btnProductos.Click += new System.EventHandler(this.btnProductos_Click);
+            // 
+            // btnSucursales (NUEVO)
+            // 
+            this.btnSucursales.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnSucursales.FlatAppearance.BorderSize = 0;
+            this.btnSucursales.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSucursales.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnSucursales.ForeColor = System.Drawing.Color.Gainsboro;
+            this.btnSucursales.Location = new System.Drawing.Point(0, 140);
+            this.btnSucursales.Name = "btnSucursales";
+            this.btnSucursales.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
+            this.btnSucursales.Size = new System.Drawing.Size(220, 60);
+            this.btnSucursales.TabIndex = 2;
+            this.btnSucursales.Text = "   Sucursales";
+            this.btnSucursales.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSucursales.UseVisualStyleBackColor = true;
+            this.btnSucursales.Click += new System.EventHandler(this.btnSucursales_Click);
             // 
             // btnVentas
             // 
@@ -166,8 +207,12 @@
             this.btnVentas.UseVisualStyleBackColor = true;
             this.btnVentas.Click += new System.EventHandler(this.btnVentas_Click);
             // 
-            // panelLogo
-            // 
+            // panelLogo ... (Igual que antes)
+            // ... (Resto del código generado igual que antes)
+            // panelTitleBar ...
+            // panelDesktop ...
+            // MainForm ...
+            // ...
             this.panelLogo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(39)))), ((int)(((byte)(58)))));
             this.panelLogo.Controls.Add(this.lblAppName);
             this.panelLogo.Dock = System.Windows.Forms.DockStyle.Top;
@@ -229,7 +274,7 @@
             this.panelDesktop.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelDesktop.Location = new System.Drawing.Point(220, 80);
             this.panelDesktop.Name = "panelDesktop";
-            this.panelDesktop.Size = new System.Drawing.Size(864, 501);
+            this.panelDesktop.Size = new System.Drawing.Size(864, 570); // Ajuste alto
             this.panelDesktop.TabIndex = 2;
             // 
             // lblBienvenida
@@ -249,7 +294,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1084, 581);
+            this.ClientSize = new System.Drawing.Size(1084, 650); // Ajuste alto
             this.Controls.Add(this.panelDesktop);
             this.Controls.Add(this.panelTitleBar);
             this.Controls.Add(this.panelMenu);
@@ -265,19 +310,21 @@
             this.panelDesktop.ResumeLayout(false);
             this.panelDesktop.PerformLayout();
             this.ResumeLayout(false);
-
         }
 
-        #endregion
+        //#endregion
 
         private System.Windows.Forms.Panel panelMenu;
-        private System.Windows.Forms.Button btnVentas;
         private System.Windows.Forms.Panel panelLogo;
         private System.Windows.Forms.Button btnSalir;
         private System.Windows.Forms.Button btnUsuarios;
         private System.Windows.Forms.Button btnReportes;
         private System.Windows.Forms.Button btnClientes;
+        private System.Windows.Forms.Button btnStock; // Nuevo
+        private System.Windows.Forms.Button btnCategorias;
         private System.Windows.Forms.Button btnProductos;
+        private System.Windows.Forms.Button btnSucursales; // Nuevo
+        private System.Windows.Forms.Button btnVentas;
         private System.Windows.Forms.Panel panelTitleBar;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Label lblAppName;
