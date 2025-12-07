@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using TechStoreSA.Data;
 using TechStoreSA.Services;
+using System.Linq; // Asegurarse de tener LINQ
 
 namespace TechStoreSA.Views
 {
@@ -78,6 +79,11 @@ namespace TechStoreSA.Views
                         }).ToList();
                         break;
 
+                    case "Estado de Cuentas de Clientes": // NUEVO CASO IMPLEMENTADO
+                        // Este reporte ignora las fechas porque es el acumulado histórico
+                        dataSource = _reporteService.ObtenerEstadoClientes();
+                        break;
+
                     default:
                         MessageBox.Show("Seleccione un tipo de reporte válido.");
                         return;
@@ -92,7 +98,7 @@ namespace TechStoreSA.Views
 
                 if (dgvReportes.Rows.Count == 0)
                 {
-                    MessageBox.Show("No se encontraron datos para el período seleccionado.", "Reporte Vacío", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("No se encontraron datos para el criterio seleccionado.", "Reporte Vacío", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)
@@ -116,6 +122,10 @@ namespace TechStoreSA.Views
             if (dgvReportes.Columns["Total"] != null)
                 dgvReportes.Columns["Total"].DefaultCellStyle.Format = "C2";
 
+            // NUEVO: Formato para el reporte de clientes
+            if (dgvReportes.Columns["TotalGastado"] != null)
+                dgvReportes.Columns["TotalGastado"].DefaultCellStyle.Format = "C2";
+
             // Encabezados más amigables (ejemplo)
             if (dgvReportes.Columns["CantidadVendida"] != null)
                 dgvReportes.Columns["CantidadVendida"].HeaderText = "Unidades";
@@ -137,4 +147,3 @@ namespace TechStoreSA.Views
         }
     }
 }
-

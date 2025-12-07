@@ -4,7 +4,8 @@ using TechStoreSA.Models;
 
 namespace TechStoreSA.Services
 {
-    // DTOs: Clases simples para transportar los resultados de los reportes a la Vista
+    // --- DTOs: Objetos para mostrar datos en las grillas ---
+
     public class ReporteProductoDTO
     {
         public string Producto { get; set; } = string.Empty;
@@ -19,6 +20,16 @@ namespace TechStoreSA.Services
         public decimal TotalFacturado { get; set; }
     }
 
+    public class ReporteEstadoClienteDTO
+    {
+        public string Cliente { get; set; } = string.Empty;
+        public string Tipo { get; set; } = string.Empty; // Minorista/Mayorista
+        public int CantidadCompras { get; set; }
+        public decimal TotalGastado { get; set; }
+    }
+
+    // --- SERVICIO DE REPORTES ---
+
     public class ReporteService
     {
         private readonly TechStoreContext _context;
@@ -28,48 +39,63 @@ namespace TechStoreSA.Services
             _context = context;
         }
 
-        // 1. REPORTE: Productos más vendidos (Top N) 
-        // Responde a: "¿Qué es lo que más se vende?"
+        // 1. REPORTE: Productos más vendidos (Con corrección de descuento)
         public List<ReporteProductoDTO> ObtenerProductosMasVendidos(DateTime desde, DateTime hasta, int topN = 5)
         {
-            // Consultamos los DETALLES de venta, que es donde está el producto y la cantidad
             var query = _context.DetallesVenta
                 .Include(d => d.Venta)
-                .Where(d => d.Venta.Fecha >= desde && d.Venta.Fecha <= hasta) // Filtrar por fecha de la venta cabecera
-                .GroupBy(d => d.Producto.Nombre) // Agrupar por nombre de producto
+                .Where(d => d.Venta.Fecha >= desde && d.Venta.Fecha <= hasta)
+                .GroupBy(d => d.Producto.Nombre)
                 .Select(g => new ReporteProductoDTO
                 {
                     Producto = g.Key,
-                    CantidadVendida = g.Sum(d => d.Cantidad), // Sumar cantidades
-                    IngresosGenerados = g.Sum(d => d.Importe) // Sumar dinero generado
+                    CantidadVendida = g.Sum(d => d.Cantidad),
+
+                    IngresosGenerados = g.Sum(d => 
+                        d.Venta.SubTotal > 0 
+                        ? d.Importe * (d.Venta.Total / d.Venta.SubTotal) 
+                        : 0)
                 })
-                .OrderByDescending(r => r.CantidadVendida) // Ordenar del más vendido al menos
-                .Take(topN) // Tomar solo los primeros N
+                .OrderByDescending(r => r.CantidadVendida)
+                .Take(topN)
                 .ToList();
 
             return query;
         }
 
-        // 2. REPORTE: Desempeño de Vendedores 
-        // Responde a: "¿Quién está vendiendo más?"
+        // 2. REPORTE: Desempeño de Vendedores
         public List<ReporteVendedorDTO> ObtenerVentasPorVendedor(DateTime desde, DateTime hasta)
         {
-            var query = _context.Ventas
+            return _context.Ventas
                 .Where(v => v.Fecha >= desde && v.Fecha <= hasta)
-                .GroupBy(v => v.Vendedor.NombreCompleto) // Agrupar por nombre del vendedor
+                .GroupBy(v => v.Vendedor.NombreCompleto)
                 .Select(g => new ReporteVendedorDTO
                 {
                     Vendedor = g.Key,
-                    CantidadVentas = g.Count(),      // Cuántas facturas hizo
-                    TotalFacturado = g.Sum(v => v.Total) // Cuánto dinero recaudó
+                    CantidadVentas = g.Count(),
+                    TotalFacturado = g.Sum(v => v.Total)
                 })
                 .OrderByDescending(r => r.TotalFacturado)
                 .ToList();
-
-            return query;
         }
 
-        // 3. REPORTE: Ventas por Sucursal (Totalizado) 
+        // 3. REPORTE: Estado de Cuentas de Clientes (NUEVO)
+        public List<ReporteEstadoClienteDTO> ObtenerEstadoClientes()
+        {
+
+            return _context.Clientes
+                .Select(c => new ReporteEstadoClienteDTO
+                {
+                    Cliente = c.NombreCompleto,
+                    Tipo = c.Tipo.ToString(),
+                    CantidadCompras = c.Compras.Count(),
+                    TotalGastado = c.Compras.Sum(v => v.Total) 
+                })
+                .OrderByDescending(r => r.TotalGastado)
+                .ToList();
+        }
+
+        // 4. REPORTE: Ventas por Sucursal 
         public Dictionary<string, decimal> ObtenerTotalVentasPorSucursal(DateTime desde, DateTime hasta)
         {
             return _context.Ventas
@@ -79,21 +105,18 @@ namespace TechStoreSA.Services
                 .ToDictionary(k => k.Sucursal, v => v.Total);
         }
 
-        // 4. CONSULTA: Historial/Estado de Cliente [cite: 25]
-        // Muestra todas las compras de un cliente específico.
+        // 5. CONSULTA: Detalle individual 
         public List<Venta> ObtenerHistorialCliente(int clienteId)
         {
             return _context.Ventas
                 .Include(v => v.Sucursal)
                 .Include(v => v.Vendedor)
-                // Opcional: Incluir detalles si se quiere ver qué compró en cada una
-                // .Include(v => v.Detalles).ThenInclude(d => d.Producto) 
                 .Where(v => v.ClienteId == clienteId)
                 .OrderByDescending(v => v.Fecha)
                 .ToList();
         }
 
-        // 5. REPORTE GENERAL: Listado de Ventas detallado por período
+        // 6. REPORTE GENERAL: Listado detallado
         public List<Venta> ObtenerVentasDetalladas(DateTime desde, DateTime hasta, int? sucursalId = null)
         {
             var query = _context.Ventas

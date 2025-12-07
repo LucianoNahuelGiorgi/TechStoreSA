@@ -132,7 +132,8 @@
             "Productos Más Vendidos",
             "Desempeño de Vendedores",
             "Total Ventas por Sucursal",
-            "Listado Detallado de Ventas"});
+            "Listado Detallado de Ventas",
+            "Cuenta Corriente"}); 
             this.cmbTipoReporte.Location = new System.Drawing.Point(15, 60);
             this.cmbTipoReporte.Name = "cmbTipoReporte";
             this.cmbTipoReporte.Size = new System.Drawing.Size(260, 25);
