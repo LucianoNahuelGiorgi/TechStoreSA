@@ -37,14 +37,15 @@ namespace TechStoreSA.Services
             return _context.Productos.Find(id);
         }
 
-        // 4. Obtener producto por Código (SKU) - Útil para el lector de código de barras
-        public Producto? ObtenerPorCodigo(string codigo)
+        
+        //4 Obtener por codigo o nombre
+        public Producto? Buscar1(string criterio)
         {
             return _context.Productos
-                           .Include(p => p.Stocks) // Traemos stocks por si necesitamos consultar
-                           .FirstOrDefault(p => p.Codigo == codigo);
+                           .Include(p => p.Stocks)
+                           .FirstOrDefault(p => p.Nombre.Contains(criterio) || p.Codigo.Contains(criterio));
         }
-
+        
         // 5. Crear Producto
         public void Crear(Producto producto)
         {

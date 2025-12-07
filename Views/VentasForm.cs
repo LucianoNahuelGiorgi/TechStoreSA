@@ -164,9 +164,10 @@ namespace TechStoreSA.Views
             string codigo = txtBuscarProducto.Text.Trim();
             if (string.IsNullOrEmpty(codigo)) return;
 
-            var producto = _productoService.ObtenerPorCodigo(codigo);
+            var producto = _productoService.Buscar1(codigo);;
 
-            if (producto != null)
+
+            if (producto != null )
             {
                 _productoSeleccionado = producto;
                 lblNombreProducto.Text = producto.Nombre;
