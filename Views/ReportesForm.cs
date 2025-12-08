@@ -72,7 +72,7 @@ namespace TechStoreSA.Views
                         }).ToList();
                         break;
 
-                    case "Estado de Cuentas de Clientes": 
+                    case "Cuenta Corriente":
                         dataSource = _reporteService.ObtenerEstadoClientes();
                         break;
 
