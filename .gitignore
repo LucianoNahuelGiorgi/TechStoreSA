@@ -8,6 +8,9 @@ x64/
 x86/
 build/
 
+## Migrations
+Migrations/
+
 ## Archivos específicos de usuario (no subir al repo) ##
 *.user
 *.userosscache
