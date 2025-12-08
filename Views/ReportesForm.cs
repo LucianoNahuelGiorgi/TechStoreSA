@@ -79,8 +79,7 @@ namespace TechStoreSA.Views
                         }).ToList();
                         break;
 
-                    case "Estado de Cuentas de Clientes": // NUEVO CASO IMPLEMENTADO
-                        // Este reporte ignora las fechas porque es el acumulado histórico
+                    case "Cuenta Corriente":
                         dataSource = _reporteService.ObtenerEstadoClientes();
                         break;
 
