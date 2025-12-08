@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace TechStoreSA.Models
 {
@@ -19,7 +16,7 @@ namespace TechStoreSA.Models
 
         public string? Descripcion { get; set; }
 
-        [Column(TypeName = "decimal(18,2)")] // Importante para dinero
+        [Column(TypeName = "decimal(18,2)")]
         public decimal PrecioActual { get; set; }
 
         public int CategoriaId { get; set; }

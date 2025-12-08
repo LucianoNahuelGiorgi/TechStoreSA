@@ -83,7 +83,7 @@ namespace TechStoreSA.Services
             clienteExistente.NombreCompleto = cliente.NombreCompleto;
             clienteExistente.Documento = cliente.Documento;
             clienteExistente.Email = cliente.Email;
-            clienteExistente.Tipo = cliente.Tipo; // Importante: Puede cambiar de Minorista a Mayorista
+            clienteExistente.Tipo = cliente.Tipo; // Puede cambiar de Minorista a Mayorista
 
             _context.SaveChanges();
         }
@@ -91,7 +91,7 @@ namespace TechStoreSA.Services
         // 7. Eliminar Cliente
         public void Eliminar(int id)
         {
-            // Integridad Referencial: No borrar clientes con compras
+            // No borrar clientes con compras
             bool tieneCompras = _context.Ventas.Any(v => v.ClienteId == id);
 
             if (tieneCompras)

@@ -75,7 +75,6 @@ namespace TechStoreSA.Services
 
             if (categoria == null) return;
 
-            // Validación de integridad referencial:
             // No borrar si tiene productos asociados
             if (categoria.Productos.Any())
             {

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
+﻿using System.Data;
 using TechStoreSA.Data;
 using TechStoreSA.Models;
 using TechStoreSA.Services;
@@ -81,7 +75,6 @@ namespace TechStoreSA.Views
                     NombreCompleto = txtNombre.Text.Trim(),
                     NombreUsuario = txtUsuario.Text.Trim(),
                     EsAdministrador = chkEsAdmin.Checked
-                    // Nota: No asignamos PasswordHash aquí directamente, lo hace el servicio
                 };
 
                 if (_usuarioIdSeleccionado == 0)
@@ -111,9 +104,6 @@ namespace TechStoreSA.Views
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             if (_usuarioIdSeleccionado == 0) return;
-
-            // Evitar que un admin se borre a sí mismo (validación simple de UI)
-            // Idealmente deberíamos comparar con el ID del usuario logueado en sesión
 
             if (MessageBox.Show("¿Está seguro de eliminar este usuario? Esta acción no se puede deshacer.",
                 "Confirmar Eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
@@ -158,7 +148,6 @@ namespace TechStoreSA.Views
                     txtPassword.Clear();
                     txtConfirmarPass.Clear();
 
-                    // Ajustar UI para edición
                     lblTituloPanel.Text = "Editar Usuario";
                     btnGuardar.Text = "Actualizar";
                     btnEliminar.Visible = true;

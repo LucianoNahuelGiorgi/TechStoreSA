@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
+﻿using System.Data;
 using TechStoreSA.Data;
 using TechStoreSA.Enums;
 using TechStoreSA.Models;
@@ -32,7 +26,7 @@ namespace TechStoreSA.Views
         private readonly VentaService _ventaService;
         private readonly ProductoService _productoService;
         private readonly ClienteService _clienteService;
-        private readonly SucursalService _sucursalService; // <--- AGREGADO
+        private readonly SucursalService _sucursalService;
 
         // Estado de la Venta actual
         private Cliente? _clienteSeleccionado;
@@ -48,9 +42,7 @@ namespace TechStoreSA.Views
             // Inicializar servicios
             _clienteService = new ClienteService(context);
             _productoService = new ProductoService(context);
-            _sucursalService = new SucursalService(context); // <--- AGREGADO
-            // Pasamos null en clienteService si el constructor de VentaService no lo pide, 
-            // pero en tu código anterior sí lo pedía. Ajusta según tu VentaService real.
+            _sucursalService = new SucursalService(context); 
             _ventaService = new VentaService(context, _clienteService);
 
             _carrito = new List<ItemCarritoDTO>();
@@ -61,14 +53,11 @@ namespace TechStoreSA.Views
         private void InicializarFormulario()
         {
             lblFecha.Text = DateTime.Now.ToLongDateString();
-
-            // CORREGIDO: Ya no usamos _usuarioActual.SucursalId porque no existe.
             lblDatosVendedor.Text = $"Vendedor: {_usuarioActual.NombreCompleto}";
 
             // Cargar combo de Métodos de Pago
             cmbMetodoPago.DataSource = Enum.GetValues(typeof(MetodoPago));
 
-            // --- AGREGADO: Cargar Sucursales ---
             CargarSucursales();
 
             LimpiarSeleccionProducto();
@@ -173,7 +162,6 @@ namespace TechStoreSA.Views
                 lblNombreProducto.Text = producto.Nombre;
                 lblPrecioProducto.Text = producto.PrecioActual.ToString("C2");
 
-                // CORREGIDO: Consultar Stock en la Sucursal SELECCIONADA
                 int sucursalId = ObtenerSucursalIdSeleccionada();
                 int stockDisponible = _productoService.ConsultarStock(producto.Id, sucursalId);
 
@@ -266,7 +254,6 @@ namespace TechStoreSA.Views
 
             if (_clienteSeleccionado != null)
             {
-                // Asegúrate que tu ClienteService tenga este método, si no, usa lógica directa
                 // porcentajeDescuento = _clienteService.ObtenerPorcentajeDescuento(_clienteSeleccionado.Tipo);
                 porcentajeDescuento = (_clienteSeleccionado.Tipo == TipoCliente.Mayorista) ? 0.10m : 0m;
             }
@@ -311,7 +298,6 @@ namespace TechStoreSA.Views
                     Cantidad = c.Cantidad
                 }).ToList();
 
-                // CORREGIDO: Usamos la sucursal del Combo, NO la del usuario
                 _ventaService.CrearVenta(
                     _clienteSeleccionado.Id,
                     _usuarioActual.Id,

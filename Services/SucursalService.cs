@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TechStoreSA.Data;
+﻿using TechStoreSA.Data;
 using TechStoreSA.Models;
 
 namespace TechStoreSA.Services
@@ -64,33 +61,18 @@ namespace TechStoreSA.Services
             sucursalExistente.Nombre = sucursal.Nombre;
             sucursalExistente.Direccion = sucursal.Direccion;
 
-            // ELIMINADO: sucursalExistente.Telefono y Email porque no están en el modelo original.
-
             _context.SaveChanges();
         }
 
         // 5. Eliminar sucursal
         public void Eliminar(int id)
         {
-            // ELIMINADO: Verificación de usuarios (A) porque Usuario no tiene SucursalId en el modelo original.
-
             // B. Verificar si la sucursal tiene stock de productos
-            // (Esto sí se mantiene porque StockSucursal es una tabla intermedia que sí relaciona ambos)
             bool tieneStock = _context.StocksSucursales.Any(s => s.SucursalId == id && s.Cantidad > 0);
             if (tieneStock)
             {
                 throw new Exception("No se puede eliminar la sucursal porque tiene productos en stock.");
             }
-
-            // C. Verificar historial de ventas
-            // Si Venta.cs tiene SucursalId, esto podría descomentarse.
-            /*
-            bool tieneVentas = _context.Ventas.Any(v => v.SucursalId == id);
-            if (tieneVentas)
-            {
-                throw new Exception("No se puede eliminar la sucursal porque tiene historial de ventas.");
-            }
-            */
 
             var sucursal = _context.Sucursales.Find(id);
             if (sucursal != null)

@@ -1,13 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Reflection.Emit;
 using TechStoreSA.Models;
 
 namespace TechStoreSA.Data
 {
     public class TechStoreContext : DbContext
     {
-        // --- 1. ESTE ES EL CONSTRUCTOR QUE FALTABA ---
+
         public TechStoreContext(DbContextOptions<TechStoreContext> options) : base(options)
         {
         }
@@ -16,7 +14,7 @@ namespace TechStoreSA.Data
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Producto> Productos { get; set; }
         public DbSet<Sucursal> Sucursales { get; set; }
-        public DbSet<StockSucursal> StocksSucursales { get; set; } // Nombre corregido para coincidir con tu propiedad
+        public DbSet<StockSucursal> StocksSucursales { get; set; }
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Venta> Ventas { get; set; }

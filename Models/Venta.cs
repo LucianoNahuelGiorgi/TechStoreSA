@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 using TechStoreSA.Enums;
 
@@ -30,7 +27,7 @@ namespace TechStoreSA.Models
         public decimal SubTotal { get; set; }
 
         [Column(TypeName = "decimal(18,2)")]
-        public decimal DescuentoAplicado { get; set; } // Guardamos el valor monetario del descuento
+        public decimal DescuentoAplicado { get; set; }
 
         [Column(TypeName = "decimal(18,2)")]
         public decimal Total { get; set; }

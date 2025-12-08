@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Windows.Forms;
+﻿using System.Runtime.InteropServices;
 using TechStoreSA.Data;
 using TechStoreSA.Models;
 using TechStoreSA.Services;
@@ -111,11 +104,9 @@ namespace TechStoreSA.Views
 
         private void btnCerrar_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            this.Close();
         }
 
-        // --- MOVER VENTANA (DRAG FORM) ---
-        // Necesario porque FormBorderStyle = None quita la barra nativa para mover
         [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
         private extern static void ReleaseCapture();
 

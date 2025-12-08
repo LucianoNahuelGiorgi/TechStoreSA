@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
+﻿using System.Data;
 using TechStoreSA.Data;
 using TechStoreSA.Enums;
 using TechStoreSA.Models;
@@ -22,16 +16,9 @@ namespace TechStoreSA.Views
             InitializeComponent();
             _clienteService = new ClienteService(context);
 
-            ConfigurarGrid();
             CargarComboTipoCliente();
             CargarClientes();
             LimpiarFormulario(); // Iniciar en estado "Nuevo"
-        }
-
-        private void ConfigurarGrid()
-        {
-            // Ocultar columnas automáticas innecesarias si usas DataSource directo
-            // (Se ajusta dinámicamente al cargar los datos)
         }
 
         private void CargarComboTipoCliente()

@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using TechStoreSA.Data;
+﻿using TechStoreSA.Data;
 using TechStoreSA.Models;
 
 namespace TechStoreSA.Services
@@ -17,9 +16,7 @@ namespace TechStoreSA.Services
         public Usuario? Login(string nombreUsuario, string password)
         {
             // Nota: password aquí se compara contra PasswordHash directamente.
-            // (Para producción recuerda usar hasheo real).
             return _context.Usuarios
-                           // ELIMINADO: .Include(u => u.Sucursal) porque no existe la relación en el modelo
                            .FirstOrDefault(u => u.NombreUsuario == nombreUsuario &&
                                                 u.PasswordHash == password);
         }
@@ -47,8 +44,6 @@ namespace TechStoreSA.Services
             {
                 throw new Exception($"El nombre de usuario '{usuario.NombreUsuario}' ya está en uso.");
             }
-
-            // ELIMINADO: Validación de SucursalId (no existe en el modelo)
 
             // Asignar contraseña
             usuario.PasswordHash = password;
@@ -79,8 +74,6 @@ namespace TechStoreSA.Services
             usuarioExistente.NombreCompleto = usuario.NombreCompleto;
             usuarioExistente.NombreUsuario = usuario.NombreUsuario;
             usuarioExistente.EsAdministrador = usuario.EsAdministrador;
-
-            // ELIMINADO: usuarioExistente.SucursalId (no existe)
 
             // Actualizar contraseña si se proporciona
             if (!string.IsNullOrWhiteSpace(nuevoPassword))

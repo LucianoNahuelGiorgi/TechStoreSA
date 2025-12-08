@@ -1,8 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace TechStoreSA.Data
 {
@@ -13,7 +10,6 @@ namespace TechStoreSA.Data
         {
             var optionsBuilder = new DbContextOptionsBuilder<TechStoreContext>();
 
-            // CORRECCIÓN: Cambiar el servidor a (localdb)\mssqllocaldb
             optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=TechStoreDB;Trusted_Connection=True;TrustServerCertificate=True;");
 
             return new TechStoreContext(optionsBuilder.Options);

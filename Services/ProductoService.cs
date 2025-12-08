@@ -103,13 +103,13 @@ namespace TechStoreSA.Services
         // 7. Eliminar Producto
         public void Eliminar(int id)
         {
-            // Validar integridad: No borrar si ya se ha vendido
+            // No borrar si ya se ha vendido
             // Revisamos si existe algún DetalleVenta con este ProductoId
             bool tieneVentas = _context.DetallesVenta.Any(d => d.ProductoId == id);
 
             if (tieneVentas)
             {
-                // Opción arquitectónica: Soft Delete (marcar como inactivo) 
+                // Soft Delete (marcar como inactivo) 
                 // Pero para este ejercicio lanzamos excepción.
                 throw new Exception("No se puede eliminar el producto porque tiene historial de ventas.");
             }

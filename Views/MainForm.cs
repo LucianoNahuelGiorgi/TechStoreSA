@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-using TechStoreSA.Data;
+﻿using TechStoreSA.Data;
 using TechStoreSA.Models;
 
 namespace TechStoreSA.Views
@@ -137,9 +130,11 @@ namespace TechStoreSA.Views
         private void btnSalir_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("¿Está seguro que desea cerrar sesión?", "Cerrar Sesión",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                this.Close(); // Cierra el Main, regresando al Program.cs (donde volverá al Login)
+                // Usamos 'Retry' (o cualquier otro que no sea OK/Cancel) para significar "Cerrar Sesión"
+                this.DialogResult = DialogResult.Retry;
+                this.Close();
             }
         }
 

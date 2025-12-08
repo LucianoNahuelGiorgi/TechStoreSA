@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
+﻿using System.Data;
 using TechStoreSA.Data;
 using TechStoreSA.Services;
-using System.Linq; // Asegurarse de tener LINQ
 
 namespace TechStoreSA.Views
 {
@@ -79,8 +72,7 @@ namespace TechStoreSA.Views
                         }).ToList();
                         break;
 
-                    case "Estado de Cuentas de Clientes": // NUEVO CASO IMPLEMENTADO
-                        // Este reporte ignora las fechas porque es el acumulado histórico
+                    case "Estado de Cuentas de Clientes": 
                         dataSource = _reporteService.ObtenerEstadoClientes();
                         break;
 
@@ -122,7 +114,6 @@ namespace TechStoreSA.Views
             if (dgvReportes.Columns["Total"] != null)
                 dgvReportes.Columns["Total"].DefaultCellStyle.Format = "C2";
 
-            // NUEVO: Formato para el reporte de clientes
             if (dgvReportes.Columns["TotalGastado"] != null)
                 dgvReportes.Columns["TotalGastado"].DefaultCellStyle.Format = "C2";
 

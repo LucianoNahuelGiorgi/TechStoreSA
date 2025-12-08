@@ -75,7 +75,7 @@ namespace TechStoreSA.Services
                     {
                         ProductoId = item.ProductoId,
                         Cantidad = item.Cantidad,
-                        // IMPORTANTE: Guardamos el precio del momento (Snapshot)
+                        // Guardamos el precio del momento (Snapshot)
                         PrecioUnitario = producto.PrecioActual,
                         Importe = producto.PrecioActual * item.Cantidad
                     };
@@ -106,39 +106,6 @@ namespace TechStoreSA.Services
                 transaction.Rollback();
                 throw; // Re-lanzar el error para que lo muestre el Formulario
             }
-        }
-
-        // Reporte 1: Historial de Ventas con filtros
-        public List<Venta> ObtenerHistorial(DateTime? desde, DateTime? hasta, int? sucursalId)
-        {
-            var query = _context.Ventas
-                .Include(v => v.Cliente)
-                .Include(v => v.Vendedor)
-                .Include(v => v.Sucursal)
-                .AsQueryable();
-
-            if (desde.HasValue)
-                query = query.Where(v => v.Fecha >= desde.Value);
-
-            if (hasta.HasValue)
-                query = query.Where(v => v.Fecha <= hasta.Value);
-
-            if (sucursalId.HasValue)
-                query = query.Where(v => v.SucursalId == sucursalId.Value);
-
-            return query.OrderByDescending(v => v.Fecha).ToList();
-        }
-
-        // Reporte 2: Obtener una venta con sus detalles (para ver factura)
-        public Venta? ObtenerVentaConDetalles(int ventaId)
-        {
-            return _context.Ventas
-                .Include(v => v.Cliente)
-                .Include(v => v.Vendedor)
-                .Include(v => v.Sucursal)
-                .Include(v => v.Detalles)
-                    .ThenInclude(d => d.Producto) // Incluir datos del producto dentro del detalle
-                .FirstOrDefault(v => v.Id == ventaId);
         }
     }
 }

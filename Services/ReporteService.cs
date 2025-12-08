@@ -79,7 +79,7 @@ namespace TechStoreSA.Services
                 .ToList();
         }
 
-        // 3. REPORTE: Estado de Cuentas de Clientes (NUEVO)
+        // 3. REPORTE: Estado de Cuentas corrientes de Clientes
         public List<ReporteEstadoClienteDTO> ObtenerEstadoClientes()
         {
 
@@ -105,18 +105,7 @@ namespace TechStoreSA.Services
                 .ToDictionary(k => k.Sucursal, v => v.Total);
         }
 
-        // 5. CONSULTA: Detalle individual 
-        public List<Venta> ObtenerHistorialCliente(int clienteId)
-        {
-            return _context.Ventas
-                .Include(v => v.Sucursal)
-                .Include(v => v.Vendedor)
-                .Where(v => v.ClienteId == clienteId)
-                .OrderByDescending(v => v.Fecha)
-                .ToList();
-        }
-
-        // 6. REPORTE GENERAL: Listado detallado
+        // 6. REPORTE GENERAL: Listado detallado de ventas
         public List<Venta> ObtenerVentasDetalladas(DateTime desde, DateTime hasta, int? sucursalId = null)
         {
             var query = _context.Ventas

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TechStoreSA.Models
+﻿namespace TechStoreSA.Models
 {
     // Entidad intermedia para manejar stock por sucursal
     public class StockSucursal

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace TechStoreSA.Models
 {
@@ -19,8 +16,6 @@ namespace TechStoreSA.Models
 
         public int Cantidad { get; set; }
 
-        // Importante: Guardar el precio HISTÓRICO al momento de la venta
-        // Si el producto cambia de precio mañana, esta venta no debe cambiar.
         [Column(TypeName = "decimal(18,2)")]
         public decimal PrecioUnitario { get; set; }
 
